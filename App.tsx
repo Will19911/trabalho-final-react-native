@@ -1,22 +1,20 @@
+import { StatusBar} from "react-native"
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { AppProvider } from './src/Contexts/AppContext';
-import OfflineBanner from './src/Components/offlineBanner';
-import Routes from './src/Routes';
+import { NavigationContainer } from "@react-navigation/native"
+import Routes from "./src/routes"
+import AuthProvider from "./src/Contexts/AuthContext";
 
 export default function App() {
   return (
-    <AppProvider>
-      <NavigationContainer>
-        <View style={{ flex: 1 }}>
-          <OfflineBanner />
-          <Routes />
-          <StatusBar style="light" />
-        </View>
-      </NavigationContainer>
-    </AppProvider>
+    <AuthProvider>
+    <NavigationContainer>
+      <StatusBar 
+      backgroundColor="rgba(10, 176, 241, 1)"
+      barStyle={'light-content'}
+      translucent={false}
+      />
+      <Routes />
+    </NavigationContainer>
+    </AuthProvider>
   );
 }
-
