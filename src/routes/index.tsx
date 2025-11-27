@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Welcome from "../Pages/welcome";
 import Login from "../Pages/login";
 import Cadastro from "../Pages/cadastro";
-import TabRoutes from "./tab";
+import TabRoutes from "../routes/tab";
 
 import { AuthContext } from "../Contexts/AuthContext";
 

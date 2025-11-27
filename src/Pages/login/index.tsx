@@ -1,10 +1,12 @@
+import React from 'react';
 import { View, Text , StyleSheet, TextInput,TouchableOpacity, Alert} from 'react-native'
-import React, { useContext, useState } from 'react'
+
 import * as Animatable from 'react-native-animatable'
 import { AuthContext } from "../../Contexts/AuthContext"
 import api from '../../Services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native' 
+import { useContext, useState } from 'react';
 
 export default function Login() {
   const {setToken} = useContext(AuthContext);
