@@ -1,41 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Welcome from "../Pages/welcome/"
+
+import Welcome from "../Pages/welcome";
 import Login from "../Pages/login";
-import Cadastro from "../Pages/cadastro"; 
-import Feed from "../Pages/Feed";
-import { useContext } from "react";
+import Cadastro from "../Pages/cadastro";
+import TabRoutes from "./tab"; // agora correto
+
 import { AuthContext } from "../Contexts/AuthContext";
 
-export type RootTabParamList = {
-    Welcome: undefined,
-    Login: undefined,
-    Cadastro: undefined, 
-    Feed: undefined,
-}
+export type RootStackParamList = {
+  Welcome: undefined;
+  Login: undefined;
+  Cadastro: undefined;
+  Tabs: undefined;
+};
 
-const Stack = createNativeStackNavigator<RootTabParamList>();
-
-
-
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Routes() {
-    const { token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
-    return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {token ? (
-                <Stack.Group>
-                    <Stack.Screen name="Feed" component={Feed} />
-                </Stack.Group>
-            ) : (
-               
-                <Stack.Group>
-                    <Stack.Screen name="Welcome" component={Welcome} />
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen name="Cadastro" component={Cadastro} />
-                </Stack.Group>
-            )}
-        </Stack.Navigator>
-    )
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {token ? (
+        // Usuário logado → vai para as tabs
+        <Stack.Screen name="Tabs" component={TabRoutes} />
+      ) : (
+        // Usuário deslogado → telas públicas
+        <>
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Cadastro" component={Cadastro} />
+        </>
+      )}
+    </Stack.Navigator>
+  );
 }
