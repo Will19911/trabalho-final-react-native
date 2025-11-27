@@ -1,3 +1,4 @@
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Feed from "../Pages/Feed";
 import { View, Text } from "react-native";
