@@ -3,7 +3,7 @@ import StorageService  from '../Services/storage';
 import { API_KEY_DEFAULT } from '../Services/api';
 import { User, WeatherData, AppContextType } from '../Types/interfaces';
 
-export const AppContext = createContext({} as AppContextType);
+export const AppContext = createContext<AppContextType | null>(null);
 
 interface AppProviderProps {
   children: ReactNode;
@@ -14,6 +14,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [favorites, setFavorites] = useState<WeatherData[]>([]);
   const [apiKey, setApiKey] = useState<string>(API_KEY_DEFAULT);
   const [loadingAuth, setLoadingAuth] = useState<boolean>(true);
+  const [home, setHome] = useState<string>("");
 
   useEffect(() => {
     const loadStorage = async () => {
@@ -23,8 +24,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         const storedKey = await StorageService.getItem('@apiKey');
 
         if (storedUser) setUser(JSON.parse(storedUser));
-        if (storedFavs) setFavorites(JSON.parse(storedFavs));
-        if (storedKey) setApiKey(storedKey);
+        if (storedFavs) {
+          try {
+             setFavorites(JSON.parse(storedFavs));
+          } catch {
+             setFavorites([]);
+          }
+       }
+       if (storedKey && storedKey.length > 5) setApiKey(storedKey);
       } catch (error) {
         console.warn("Erro ao carregar dados do storage:", error);
       } finally {

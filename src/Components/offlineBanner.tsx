@@ -25,6 +25,8 @@ const OfflineBanner: React.FC = () => {
   );
 };
 
+export default OfflineBanner;
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ef4444',
@@ -41,4 +43,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default OfflineBanner;
+

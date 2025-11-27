@@ -13,7 +13,7 @@ export default function Welcome() {
         <View style={styles.containerLogo}>
           <Animatable.Image
             animation="flipInY"
-            source={require("../../assecs/clima.png")}
+            source={require("../../assets/clima.png")}
             style={styles.logo} 
             resizeMode="contain"
           />

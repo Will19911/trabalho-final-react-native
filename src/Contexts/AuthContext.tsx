@@ -1,27 +1,41 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState } from 'react';
+import { API_KEY_DEFAULT } from "../Services/api";
 
-
-interface AuthContextData {
-  token: string | null;
-  setToken: (token: string | null) => void;
-  logout: () => void;
-}
-
-export const AuthContext = createContext<AuthContextData>({
-  token: null,
-  setToken: () => {},
-  logout: () => {},
-});
+export const AuthContext = createContext(null);
 
 export default function AuthProvider({ children }) {
-  const [token, setToken] = useState<string | null>(null);
-  //quando faz logout token vai para nulo
-  function logout() {
-    setToken(null);
+  const [user, setUser] = useState(null);
+  const [apiKey, setApiKey] = useState("API_KEY_DEFAULT");
+
+  function saveApiKey(key) {
+    setApiKey(key);
   }
 
+  function login(email, password) {
+    
+    setUser({
+      name: "William",
+      email: email,
+      password: password
+    });
+  }
+
+  function register(name, email, password) {
+    
+    setUser({
+      name: name,
+      email: email,
+      password: password
+    });
+  }
+
+  function logout() {
+    setUser(null);
+  }
+
+
   return (
-    <AuthContext.Provider value={{ token, setToken, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, register, apiKey, saveApiKey }}>
       {children}
     </AuthContext.Provider>
   );
